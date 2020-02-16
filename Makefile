@@ -7,8 +7,14 @@
 
 CC			= 	gcc
 
-SRC			=	src/main.c	\
-				src/my_ls.c
+SRC			=	src/main.c		\
+				src/my_ls.c		\
+				src/my_ls_l.c	\
+				src/ls_l_back.c	\
+
+SRC_TEST	=	tests/my_putstr.c	\
+				tests/my_putstr.c	\
+				tests/tests.usage.c
 
 OBJ			=	$(SRC:.c=.o)
 
@@ -29,7 +35,7 @@ $(NAME):		$(OBJ)
 			@$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 tests_run:	$(OBJ_TESTS)
-			$(CC) -o $(TEST_NAME) $(OBJ_TESTS) -lcriterion $(LDFLAGS) --coverage
+			$(CC) -o $(TEST_NAME) $(OBJ_TESTS) $(LDFLAGS) -lcriterion --coverage -lgcov
 			./$(TEST_NAME)
 
 gcovr:
@@ -56,4 +62,4 @@ re:			fclean all
 			@$(CC) $(CFLAGS) -c $< -o $@ && echo -e " [\033[32mOK\033[0m]" || echo -e " [\033[31mKO\033[0m]"
 
 
-.PHONY:		all unit_test clean fclean re $(NAME)
+.PHONY:		all unit_test clean fclean re
