@@ -9,10 +9,12 @@
 
 int main(int argc, char **argv)
 {
-    struct my_ls;
-    if (argc == 2) {
-        my_ls(argv[1]);
-    } else if (argc == 1)
-        my_ls("./");
-    return (0);
+    int status = 0;
+
+    if (argc == 2 || argc == 3) {
+        status = my_ls(argv);
+    } else if (argc == 1) {
+        status = my_ls_basic("./");
+    }
+    return (status);
 }

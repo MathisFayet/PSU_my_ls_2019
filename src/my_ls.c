@@ -7,12 +7,34 @@
 
 #include "my_all_ls.h"
 
-#include <sys/types.h>
-#include <dirent.h>
-#include <unistd.h>
+int check_my_ls(char **argv)
+{
+    int status = 0;
 
-int my_ls(char *argv)
-{   
+    if (argv[2] == NULL) {
+        status = my_ls_l("./");
+    } else {
+        status = my_ls_l(argv[2]);
+    }
+    return (status);
+}
+
+int my_ls(char **argv)
+{
+    int status = 0;
+
+    if (argv[1][0] == '-' && argv[1][1] == 'l') {
+        status = check_my_ls(argv);
+    } else if (argv[2] == NULL) {
+        status = my_ls_basic(argv[1]);
+    } else {
+        return (1);
+    }
+    return (status);
+}
+
+int my_ls_basic(char *argv)
+{
     char const *filepath;
     struct dirent *path = NULL;
     DIR *dir = opendir(argv);
@@ -28,4 +50,6 @@ int my_ls(char *argv)
         }
         path = readdir(dir);
     }
+    closedir(dir);
+    return (0);
 }
