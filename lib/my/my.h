@@ -35,3 +35,4 @@ int my_showmen(char const *str, int size);
 char *my_strcat(char *dest, char const *src);
 char *my_strncat(char *dest, char const *src, int nb);
 int my_compute_power_rec(int nb, int p);
+char **my_str_to_word_array(char *str);
